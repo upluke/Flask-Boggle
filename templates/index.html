@@ -1,36 +1,39 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Flask Boggle</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
  
-<main>
+<session id="boggle">
     <h1>Home</h1>
-    <table>
-    {% for choice in new_board %}
+    <table class="board">
+    {% for row in board %}
       <tr>
-      {% for letter in choice %}
-        <td>{{letter}}</td>
+      {% for cell in row %}
+        <td>{{cell}}</td>
       {% endfor %}
       </tr>
     {% endfor %}
     </table> 
-    <form action="/test" method="POST" >
-      <label for="word">Enter a word:</label>
-      <input type="text" name="word" />
-      <button>Submit</button>
-      
+    <form method="POST" class="add-word">
+      <input name="word" class="word" autofocus>
+      <button>Enter</button>
     </form>
- 
-</main>
+    <p class="msg">
+      <!-- our JS will put messages here dynamically -->
+    </p>
+
+    <ul class="words">
+      <!-- our JS will words here as they score -->   
+    </ul>
+</session>
 <script src="http://unpkg.com/jquery"></script>
 <script src="https://unpkg.com/axios@0.19.0/dist/axios.js"></script>
 <script src="/static/boggle.js"></script> 
+<script>
+  let game = new BoggleGame("boggle", 60);
+</script>
 </body>
 </html>
