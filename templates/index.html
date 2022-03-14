@@ -7,7 +7,7 @@
 <body>
  
 <session id="boggle">
-    <h1>Home</h1>
+    <h1>Boggle</h1>
     <table class="board">
     {% for row in board %}
       <tr>
@@ -16,7 +16,16 @@
       {% endfor %}
       </tr>
     {% endfor %}
-    </table> 
+    </table>
+    <p>High Score: 
+      <b>{{ highscore }}</b> 
+      in {{ nplays }} plays
+    </p>
+
+    <p>
+      Score: <b class="score">0</b>
+      Seconds Left: <b class="timer"></b>
+    </p> 
     <form method="POST" class="add-word">
       <input name="word" class="word" autofocus>
       <button>Enter</button>

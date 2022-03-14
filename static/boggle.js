@@ -12,7 +12,7 @@ class BoggleGame {
     // every 1000 msec, "tick"
     this.timer = setInterval(this.tick.bind(this), 1000);
 
-    // $(".add-word", this.board).on("submit", this.handleSubmit.bind(this));
+    $(".add-word", this.board).on("submit", this.handleSubmit.bind(this));
   }
   /* show word in list of words */
   // $(expr, context) = $(context).find(expr)
