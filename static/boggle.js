@@ -3,14 +3,14 @@ class BoggleGame {
 
   constructor(boardId, secs = 60) {
     this.secs = secs; // game length
-    // this.showTimer();
+    this.showTimer();
 
     this.score = 0;
     this.words = new Set();
     this.board = $("#" + boardId);
 
     // every 1000 msec, "tick"
-    // this.timer = setInterval(this.tick.bind(this), 1000);
+    this.timer = setInterval(this.tick.bind(this), 1000);
 
     // $(".add-word", this.board).on("submit", this.handleSubmit.bind(this));
   }
@@ -47,7 +47,6 @@ class BoggleGame {
     }
 
     // check server for validity
- 
     const resp = await axios.get("/check-word", { params: { word: word }});
     if (resp.data.result === "not-word") {
       this.showMessage(`${word} is not a valid English word`, "err");
@@ -63,5 +62,24 @@ class BoggleGame {
 
     $word.val("").focus();
   }
+  /* Update timer in DOM */
 
+  showTimer() {
+    $(".timer", this.board).text(this.secs);
+  }
+
+  /* Tick: handle a second passing in game */
+
+  async tick() {
+    this.secs -= 1;
+    this.showTimer();
+
+    if (this.secs === 0) {
+      clearInterval(this.timer);
+      await this.scoreGame();
+    }
+  }
+
+
+  
 }
