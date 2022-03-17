@@ -25,3 +25,16 @@ class FlaskTests(TestCase):
             self.assertIn(b'<p>High Score:', response.data)
             self.assertIn(b'Score:', response.data)
             self.assertIn(b'Seconds Left:', response.data)
+    
+    def test_valid_word(self):
+        """Test if word is valid by modifying the board in the session"""
+
+        with self.client as client:
+            with client.session_transaction() as sess:
+                sess['board'] = [["C", "A", "T", "T", "T"], 
+                                 ["C", "A", "T", "T", "T"], 
+                                 ["C", "A", "T", "T", "T"], 
+                                 ["C", "A", "T", "T", "T"], 
+                                 ["C", "A", "T", "T", "T"]]
+        response = self.client.get('/check-word?word=cat')
+        self.assertEqual(response.json['result'], 'ok')
