@@ -38,3 +38,10 @@ class FlaskTests(TestCase):
                                  ["C", "A", "T", "T", "T"]]
         response = self.client.get('/check-word?word=cat')
         self.assertEqual(response.json['result'], 'ok')
+    
+    def test_invalid_word(self):
+        """Test if word is in the dictionary"""
+
+        self.client.get('/')
+        response = self.client.get('/check-word?word=impossible')
+        self.assertEqual(response.json['result'], 'not-on-board')
